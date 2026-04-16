@@ -123,8 +123,8 @@ if __name__ == "__main__":
 #     npimg = np.frombuffer(file.read(), np.uint8)
 #     frame = cv2.imdecode(npimg, cv2.IMREAD_COLOR)
 
-    return jsonify(process_frame(frame))
+#     return jsonify(process_frame(frame))
 
 
-if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+# if __name__ == "__main__":
+#     app.run(debug=True, port=5000)
