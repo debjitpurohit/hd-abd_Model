@@ -33,7 +33,7 @@ from pipeline import process_frame
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, origins=["https://hd-abd-hmi.vercel.app"])
+CORS(app, resources={r"/*": {"origins": "*"}})
 @app.route("/detect", methods=["POST"])
 def detect():
     try:
