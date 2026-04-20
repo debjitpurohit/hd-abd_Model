@@ -56,22 +56,21 @@
 from ultralytics import YOLO
 import torch
 
-device = 0 if torch.cuda.is_available() else "cpu"
+device = "cuda" if torch.cuda.is_available() else "cpu"
 print("Using device:", device)
 
-model = YOLO("yolov8n.pt")  # use nano for speed
-
-# model = YOLO("yolov8s.pt")
+model = YOLO("yolov8n.pt")
 
 IMPORTANT_CLASSES = [
     "car", "truck", "bus",
     "person",
     "bicycle", "motorcycle",
-    "traffic light", "stop sign","dog", "cat", "cow", "horse", "sheep"
+    "traffic light", "stop sign",
+    "dog", "cat", "cow", "horse", "sheep"
 ]
 
 def detect_objects(frame):
-    results = model(frame,device=device)
+    results = model(frame, device=device)
 
     objects = []
 
