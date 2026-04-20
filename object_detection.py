@@ -56,9 +56,10 @@
 from ultralytics import YOLO
 import torch
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
-model = YOLO("yolov8s.pt").to(device)
-print(torch.cuda.is_available())
+device = 0 if torch.cuda.is_available() else "cpu"
+print("Using device:", device)
+
+model = YOLO("yolov8n.pt")  # use nano for speed
 
 # model = YOLO("yolov8s.pt")
 
@@ -70,7 +71,7 @@ IMPORTANT_CLASSES = [
 ]
 
 def detect_objects(frame):
-    results = model(frame,device=0)
+    results = model(frame,device=device)
 
     objects = []
 
