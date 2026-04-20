@@ -58,6 +58,7 @@ import torch
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 model = YOLO("yolov8s.pt").to(device)
+print(torch.cuda.is_available())
 
 # model = YOLO("yolov8s.pt")
 
@@ -69,7 +70,7 @@ IMPORTANT_CLASSES = [
 ]
 
 def detect_objects(frame):
-    results = model(frame)
+    results = model(frame,device=0)
 
     objects = []
 
