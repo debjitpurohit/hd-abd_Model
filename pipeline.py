@@ -33,6 +33,7 @@ from object_detection import detect_objects
 from lane_detection import detect_lanes
 from weather import detect_weather
 from sign_detection import detect_signs
+from concurrent.futures import ThreadPoolExecutor
 
 def to_python(obj):
     if isinstance(obj, dict):
@@ -48,13 +49,18 @@ def to_python(obj):
 
 
 def process_frame(frame):
-    objects = detect_objects(frame)
+    with ThreadPoolExecutor() as executor:
+        # run all tasks in parallel
+        obj_future = executor.submit(detect_objects, frame)
+        lane_future = executor.submit(detect_lanes, frame)
+        weather_future = executor.submit(detect_weather, frame)
+        sign_future = executor.submit(detect_signs, frame)
 
-    # ✅ FIX IS HERE
-    lanes, lane_detected = detect_lanes(frame)
-
-    weather = detect_weather(frame)
-    signs = detect_signs(frame)
+        # collect results
+        objects = obj_future.result()
+        lanes, lane_detected = lane_future.result()
+        weather = weather_future.result()
+        signs = sign_future.result()
 
     result = {
         "objects": objects,
