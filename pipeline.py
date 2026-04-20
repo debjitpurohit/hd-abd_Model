@@ -49,15 +49,15 @@ def to_python(obj):
 
 
 def process_frame(frame):
+    # YOLO first (GPU task)
+    objects = detect_objects(frame)
+
+    # CPU tasks parallel
     with ThreadPoolExecutor() as executor:
-        # run all tasks in parallel
-        obj_future = executor.submit(detect_objects, frame)
         lane_future = executor.submit(detect_lanes, frame)
         weather_future = executor.submit(detect_weather, frame)
         sign_future = executor.submit(detect_signs, frame)
 
-        # collect results
-        objects = obj_future.result()
         lanes, lane_detected = lane_future.result()
         weather = weather_future.result()
         signs = sign_future.result()
