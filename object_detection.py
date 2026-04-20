@@ -54,8 +54,12 @@
 
 #     return objects
 from ultralytics import YOLO
+import torch
 
-model = YOLO("yolov8s.pt")
+device = "cuda" if torch.cuda.is_available() else "cpu"
+model = YOLO("yolov8s.pt").to(device)
+
+# model = YOLO("yolov8s.pt")
 
 IMPORTANT_CLASSES = [
     "car", "truck", "bus",
