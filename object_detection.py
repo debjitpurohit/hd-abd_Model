@@ -61,6 +61,13 @@ print("Using device:", device)
 
 model = YOLO("yolov8n.pt")
 
+# 🔥 FORCE model to GPU
+model.to(device)
+
+# 🔍 Verify
+print("Model running on:", next(model.model.parameters()).device)
+
+
 IMPORTANT_CLASSES = [
     "car", "truck", "bus",
     "person",
@@ -70,7 +77,9 @@ IMPORTANT_CLASSES = [
 ]
 
 def detect_objects(frame):
-    results = model(frame, device=device)
+    print("YOLO CALLED")  # 🔥 debug
+
+    results = model(frame)   # ❗ remove device here (already set)
 
     objects = []
 
