@@ -59,7 +59,7 @@ import torch
 device = "cuda" if torch.cuda.is_available() else "cpu"
 print("Using device:", device)
 
-model = YOLO("yolov8n.pt")
+model = YOLO("yolov8s.pt")
 
 # 🔥 FORCE model to GPU
 model.to(device)
