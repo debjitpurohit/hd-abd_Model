@@ -33,12 +33,16 @@ from pipeline import process_frame
 from flask_cors import CORS
 
 app = Flask(__name__)
+
 CORS(app, resources={r"/detect": {
     "origins": "https://car-display-interface--aececedebjitpur.replit.app"
 }})
+
 @app.route("/detect", methods=["POST"])
 def detect():
     try:
+        print("📥 Request received")
+
         file = request.files["image"]
 
         img_bytes = np.frombuffer(file.read(), np.uint8)
@@ -46,10 +50,15 @@ def detect():
 
         result = process_frame(frame)
 
+        print("🧠 Result:", result)
+
+        # Save output image
+        cv2.imwrite("/var/www/html/output.jpg", frame)
+
         return jsonify(result)
 
     except Exception as e:
-        print(" ERROR:", e)
+        print("❌ ERROR:", e)
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
