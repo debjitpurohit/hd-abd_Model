@@ -41,7 +41,7 @@ CORS(app, resources={r"/detect": {
 @app.route("/detect", methods=["POST"])
 def detect():
     try:
-        print("📥 Request received")
+        print(" Request received")
 
         file = request.files["image"]
 
@@ -50,7 +50,7 @@ def detect():
 
         result = process_frame(frame)
 
-        print("🧠 Result:", result)
+        print("Result:", result)
 
         # Save output image
         cv2.imwrite("/var/www/html/output.jpg", frame)
@@ -58,7 +58,7 @@ def detect():
         return jsonify(result)
 
     except Exception as e:
-        print("❌ ERROR:", e)
+        print(" ERROR:", e)
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
