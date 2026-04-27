@@ -22,9 +22,9 @@ IMPORTANT_CLASSES = [
 ]
 
 def detect_objects(frame):
-    print("YOLO CALLED")  # 🔥 debug
+    print("YOLO CALLED") 
 
-    results = model(frame)   # ❗ remove device here (already set)
+    results = model(frame)   
 
     objects = []
 
