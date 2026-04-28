@@ -28,11 +28,11 @@ def detect():
         frame = cv2.imdecode(img_bytes, cv2.IMREAD_COLOR)
 
         result = process_frame(frame)
-        print("Result",result);
+        print("Result--",result);
 
         # 🔥 SAVE RESULT
         latest_result = result
-        print("Latest_Res",latest_result);
+        print("Latest_Res---",latest_result);
 
         return jsonify(result)
 
